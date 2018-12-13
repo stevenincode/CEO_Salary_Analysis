@@ -103,8 +103,8 @@ lam2 <- cutoff(eigen.poly2); lam2
 lam3 <- cutoff(eigen.poly3); lam3
 lam1 <- cutoff(eigen.exp1); lam1
 
-plot(eigen.poly2[14:28], main='Lambda of Poly2')
-lines(eigen.poly2[14:28])
+plot(eigen.poly2[1:20], main='Lambda of Poly2')
+lines(eigen.poly2[1:20])
 abline(h=lam2, col='red')
 
 plot(eigen.poly3[1:20], main='Lambda of Poly3')
@@ -186,12 +186,14 @@ poly.TryFunc <- function(degree=2, cut=9.99, pick=-1, plot=F){
 
 poly.TryFunc()
 poly.TryFunc(2, pick=21)
-cutoff.res <- eigen(G.poly2)$values[18]/eigen(G.poly2)$values[1]; cutoff.res  # >8% cutoff
+cutoff.res <- eigen(G.poly2)$values[21]/eigen(G.poly2)$values[1]; cutoff.res 
 poly.TryFunc(2, pick=4)
+eigen.poly2[1:23]
 
 poly.TryFunc(3, pick=56)
-cutoff.res <- eigen(G.poly3)$values[56]/eigen(G.poly3)$values[1]; cutoff.res  # >5% cutoff
+cutoff.res <- eigen(G.poly3)$values[56]/eigen(G.poly3)$values[1]; cutoff.res  
 poly.TryFunc(3, pick=3)
+eigen.poly2[51:58]
 
 tryall.poly2 <- c()
 for (i in c(1:21)){  # Max 21, limit at 22
