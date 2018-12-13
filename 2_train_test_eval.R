@@ -4,7 +4,7 @@
 # Get mean and std dev of the 20 Perf_train/test. Conclusions on prediction reliability.
 
 gamma1 <- 14788
-lambda1 <- unname(eigen(expFunc(gamma1))$values[447]) 
+lambda1 <- unname(eigen(expFunc(gamma1))$values[444]) 
 
 set.seed(1)
 index.train <- sample(1:nrow(x.ceo), 0.85*nrow(x.ceo))
@@ -68,40 +68,6 @@ std.perftest <- apply(perftest.res, 2, sd)
 std.perftest
 
 write.csv(perftest.res, file='perftest_result.csv')
-
-'Trying gapped lambda at 438th==========================================='
-lambdaTRY <- unname(eigen.exp14800[444])
-
-predFunc.FIX(G=expFunc.FIX(14788), lam=lambdaTRY)
-
-perftest.res2 <- c()
-for (i in c(1:20)){
-  set.seed(i)
-  index.train <- sample(1:nrow(x.ceo), 0.85*nrow(x.ceo))
-  index.test <- c(1:nrow(x.ceo))[-index.train] 
-  
-  subset = index.train
-  perftrain = predFunc.FIX(G=expFunc.FIX(14788), lam=lambdaTRY)
-  
-  subset = index.test
-  perftest = predFunc.FIX(G=expFunc.FIX(14788), lam=lambdaTRY)
-  perftest.res2 <- rbind(perftest.res2, c(Perf.Train=perftrain, Perf.Test=perftest))
-}
-
-perftest.res2 <- data.frame(perftest.res2)
-perftest.res2
-
-avg.perftest2 <- apply(perftest.res2, 2, mean)
-avg.perftest2
-
-std.perftest2 <- apply(perftest.res2, 2, sd)
-std.perftest2
-
-
-
-for (gg in c(14788)){
-  print(predFunc(G=expFunc(gg), lam=cutoff(eigen(expFunc(gg))$values)))
-}
 
 
 
