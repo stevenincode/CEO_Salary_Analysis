@@ -379,32 +379,7 @@ perf.table.cut.before
 
 
 
-
-# Step 7. Using fixed parameters and kernel, re-train Coef (alphas) on a subset training data.
-# Compute the new errors of prediction: RMSE_train and RMSE_test, and new performances.
-# Repeat 20 times to have 20 diff Perf/RMSE for train/test, so 20 diff Coef (alphas), and 20 perfs.
-# Get mean and std dev of the 20 Perf_train/test. Conclusions on prediction reliability.
-
-set.seed(1)
-train <- sample(1:nrow(x.ceo), 0.85*nrow(x.ceo))
-test <- c(1:nrow(x.ceo))[-train]  # Test set
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #expResMax=20
-
 
 exp.TryFunc.list <- function(gamma=0.2, cut=9.99, pick=-1, plot=F){
   G.expTry <- expFunc(gamma)
@@ -435,69 +410,6 @@ exp.TryFunc.list <- function(gamma=0.2, cut=9.99, pick=-1, plot=F){
 
 exp.TryFunc.list(0.2, 9.99)
 exp.TryFunc.list(0.2, cut=7, plot=T)
-
-'\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
-z <- solve(G - lambda * diag(447), y.ceo)
-
-# Leave one out cv
-errs <- c()
-preds <- c()
-for (i in 1:447){
-  Gprime <- kernelMatrix(x.ceo[-i,], kernel=polydot(degree=2))
-  z <-  solve(Gprime - lambda * diag(446), y.ceo[-i])
-  pred <- 0;
-  j <- 1;
-  while (j < i){
-    pred <- pred + z[j] * G[i,j];
-    j <- j+1
-  }
-  while (j < 447){
-    pred <- pred + z[j] * G[i,j+1];
-    j <- j+1
-  }
-  errs <- c(errs, pred - y.ceo[i])
-  preds <- c(preds, pred)
-}
-errs
-preds <- preds + mean(ceo$salary)
-preds
-mse <- mean(errs^2)
-mse
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
