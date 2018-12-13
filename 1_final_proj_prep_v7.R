@@ -1,5 +1,4 @@
 # Final project for ML
-setwd("C:/Users/steven/Dropbox/UH Study/AAA Fall 2018/2. Topic-Data Clustering & ML/Final Project")
 ceo <- read.csv('ceo.csv', row.names = 1)
 #head(ceo)
 
